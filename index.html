@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Taxi Sales App Ver1.1</title>
+</head>
+
+<body>
+
+<h1>Taxi Sales App Ver1.1</h1>
+
+売上(税込)<br>
+<input id="uriage" type="number"><br><br>
+
+<button onclick="calc()">計算</button>
+
+<hr>
+
+税抜売上
+<div id="zeinuki">0 円</div>
+
+給与(65%)
+<div id="kyuryo">0 円</div>
+
+<script>
+function calc(){
+
+let uriage =
+Number(document.getElementById("uriage").value||0);
+
+let uriage10 =
+Math.floor(uriage/10)*10;
+
+let zeinuki =
+Math.floor(uriage10/1.1);
+
+let kyuryo =
+Math.floor(zeinuki*0.65);
+
+document.getElementById("zeinuki").innerHTML =
+zeinuki.toLocaleString()+" 円";
+
+document.getElementById("kyuryo").innerHTML =
+kyuryo.toLocaleString()+" 円";
+
+}
+</script>
+
+</body>
+</html>
