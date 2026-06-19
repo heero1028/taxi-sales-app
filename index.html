@@ -3,68 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taxi Sales App Ver1.0</title>
-
+<title>Taxi Sales App Ver1.1</title>
 <style>
 body{
-    font-family:sans-serif;
-    max-width:500px;
-    margin:auto;
-    padding:20px;
+font-family:sans-serif;
+max-width:500px;
+margin:auto;
+padding:20px;
 }
-
-h1{
-    text-align:center;
-}
-
 input{
-    width:100%;
-    padding:10px;
-    margin-bottom:15px;
-    box-sizing:border-box;
+width:100%;
+padding:10px;
+margin-bottom:15px;
+box-sizing:border-box;
 }
-
 button{
-    width:100%;
-    padding:15px;
-    font-size:18px;
+width:100%;
+padding:15px;
+font-size:18px;
 }
-
 .result{
-    margin-top:20px;
-    font-size:20px;
-    font-weight:bold;
+margin-top:20px;
+font-size:18px;
 }
 </style>
 </head>
-
 <body>
+<h1>🚕 Taxi Sales App Ver1.1</h1>
 
-<h1>Taxi Sales App Ver1.0</h1>
-
-売上(税込)<br>
-<input id="uriage" type="number">
-
-<button onclick="calc()">計算</button>
+日付
+出庫時間
+入庫時間
+売上(税込)
+歩率(%)
+計算
 
 <div class="result">
-税抜売上：<span id="zeinuki">0</span> 円
+税抜売上：<span id="zeinuki">0</span>円<br><br>
+給与予測：<span id="kyuryo">0</span>円<br><br>
+労働時間：<span id="roudou">0</span>時間
 </div>
-
 <script>
 function calc(){
-
 let uriage =
 Number(document.getElementById("uriage").value);
-
+let buritsu =
+Number(document.getElementById("buritsu").value);
 let zeinuki =
 Math.round(uriage / 1.1 / 10) * 10;
-
+let kyuryo =
+Math.floor(zeinuki * buritsu / 100);
+let start =
+document.getElementById("start").value;
+let end =
+document.getElementById("end").value;
+let sh = Number(start.split(":")[0]);
+let sm = Number(start.split(":")[1]);
+let eh = Number(end.split(":")[0]);
+let em = Number(end.split(":")[1]);
+let roudou =
+(eh + em/60) - (sh + sm/60);
 document.getElementById("zeinuki").innerHTML =
 zeinuki.toLocaleString();
-
+document.getElementById("kyuryo").innerHTML =
+kyuryo.toLocaleString();
+document.getElementById("roudou").innerHTML =
+roudou.toFixed(1);
 }
 </script>
-
 </body>
 </html>
