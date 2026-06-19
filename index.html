@@ -1,23 +1,22 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Taxi Sales App Ver1.1</title>
 <style>
 body{
-  font-family:sans-serif;
-  padding:20px;
+padding:20px;
+font-size:24px;
 }
 input{
-  width:100%;
-  font-size:20px;
-  margin-bottom:15px;
+width:100%;
+font-size:24px;
+margin-bottom:20px;
 }
 button{
-  width:100%;
-  font-size:20px;
-  padding:15px;
+width:100%;
+font-size:24px;
+padding:15px;
 }
 </style>
 </head>
@@ -29,13 +28,17 @@ button{
 計算
 
 <h2>税抜売上：<span id="zeinuki">0</span>円</h2>
-<h2>給与予測：<span id="kyuryo">0</span>円</h2>
-<script>
-function calc() {
-let uriage = Number(document.getElementById("uriage").value);
-let buritsu = Number(document.getElementById("buritsu").value);
-let zeinuki = Math.round(uriage / 1.1 / 10) * 10;
-let kyuryo = Math.floor(zeinuki * buritsu / 100);
+<h2>給与予測：<span id="kyuryo">0</span>円</h2
+                                     <script>
+function calc(){
+let uriage =
+Number(document.getElementById("uriage").value);
+let buritsu =
+Number(document.getElementById("buritsu").value);
+let zeinuki =
+Math.round(uriage/1.1/10)*10;
+let kyuryo =
+Math.floor(zeinuki*buritsu/100);
 document.getElementById("zeinuki").innerHTML =
 zeinuki.toLocaleString();
 document.getElementById("kyuryo").innerHTML =
@@ -43,4 +46,4 @@ kyuryo.toLocaleString();
 }
 </script>
 </body>
-</html>
+</html> 
