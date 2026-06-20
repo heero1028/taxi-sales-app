@@ -24,9 +24,13 @@ padding:15px;
 </head>
 <body>
 <h1>🚕 Taxi Sales App Ver1.1</h1>
-売上(税込)
-歩率(%)
-計算
+売上(税込)<br>
+<input id="uriage" type="number">
+
+歩率(%)<br>
+<input id="buritsu" type="number" value="60">
+
+<button onclick="calc()">計算</button>
   <h2>税抜売上：<span id="zeinuki">0</span>円</h2>
 <h2>給与予測：<span id="kyuryo">0</span>円</h2>
 <script>
