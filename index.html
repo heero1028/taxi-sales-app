@@ -54,6 +54,8 @@ padding:15px;
 
 <h2>労働時間：<span id="roudou">0時間</span></h2>
 
+
+<h2>時給：<span id="jikyuu">0</span>円</h2>
 <script>
 function calc(){
   let uriage =
@@ -102,6 +104,16 @@ diff%60;
 
 document.getElementById("roudou").innerHTML =
 h + "時間" + m + "分";
+    let totalHours = workMinutes / 60;
+
+let jikyuu = 0;
+
+if(totalHours > 0){
+    jikyuu = Math.floor(kyuryo / totalHours);
+}
+
+document.getElementById("jikyuu").innerHTML =
+jikyuu.toLocaleString();
 }
   }
 
