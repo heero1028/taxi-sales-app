@@ -2,12 +2,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Taxi Sales App Ver1.1</title>
+<title>Taxi Sales App Ver1.2</title>
+
 <style>
 body{
 padding:20px;
 font-size:24px;
 }
+
 input{
 width:100%;
 font-size:24px;
@@ -15,15 +17,29 @@ padding:10px;
 margin-bottom:15px;
 box-sizing:border-box;
 }
+
 button{
 width:100%;
 font-size:24px;
 padding:15px;
 }
 </style>
+
 </head>
+
 <body>
-<h1>🚕 Taxi Sales App Ver1.1</h1>
+
+<h1>🚕 Taxi Sales App Ver1.2</h1>
+
+日付<br>
+<input id="hiduke" type="date">
+
+出庫時間<br>
+<input id="syukko" type="time">
+
+入庫時間<br>
+<input id="nyuko" type="time">
+
 売上(税込)<br>
 <input id="uriage" type="number">
 
@@ -31,23 +47,66 @@ padding:15px;
 <input id="buritsu" type="number" value="60">
 
 <button onclick="calc()">計算</button>
-  <h2>税抜売上：<span id="zeinuki">0</span>円</h2>
+
+<h2>税抜売上：<span id="zeinuki">0</span>円</h2>
+
 <h2>給与予測：<span id="kyuryo">0</span>円</h2>
+
+<h2>労働時間：<span id="roudou">0時間</span></h2>
+
 <script>
 function calc(){
-let uriage =
+  let uriage =
 Number(document.getElementById("uriage").value);
+
 let buritsu =
 Number(document.getElementById("buritsu").value);
+
 let zeinuki =
 Math.round(uriage/1.1/10)*10;
+
 let kyuryo =
 Math.floor(zeinuki*buritsu/100);
+
 document.getElementById("zeinuki").innerHTML =
 zeinuki.toLocaleString();
+
 document.getElementById("kyuryo").innerHTML =
 kyuryo.toLocaleString();
+
+let syukko =
+document.getElementById("syukko").value;
+
+let nyuko =
+document.getElementById("nyuko").value;
+  if(syukko && nyuko){
+
+let start =
+new Date("2000-01-01 " + syukko);
+
+let end =
+new Date("2000-01-01 " + nyuko);
+
+if(end < start){
+end.setDate(end.getDate()+1);
 }
+
+let diff =
+(end-start)/(1000*60);
+
+let h =
+Math.floor(diff/60);
+
+let m =
+diff%60;
+
+document.getElementById("roudou").innerHTML =
+h + "時間" + m + "分";
+}
+  }
+
 </script>
+
 </body>
-</html>
+</html
+  
