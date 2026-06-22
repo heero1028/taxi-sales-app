@@ -87,14 +87,7 @@ let start =
 new Date("2000-01-01 " + syukko);
 
 let end =
-new Date("2000-01-01 " + nyuko);
-
-if(end < start){
-end.setDate(end.getDate()+1);
-}
-
-let diff =
-(end-start)/(1000*60);
+new Date("
 
 let h =
 Math.floor(diff/60);
@@ -104,7 +97,7 @@ diff%60;
 
 document.getElementById("roudou").innerHTML =
 h + "時間" + m + "分";
-    let totalHours = workMinutes / 60;
+    let totalHours = diff / 60;
 
 let jikyuu = 0;
 
