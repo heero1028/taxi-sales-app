@@ -47,7 +47,7 @@ padding:15px;
 <input id="buritsu" type="number" value="60">
 
 <button onclick="calc()">計算</button>
-
+<button onclick="saveData()">日報保存</button>
 <h2>税抜売上：<span id="zeinuki">0</span>円</h2>
 
 <h2>給与予測：<span id="kyuryo">0</span>円</h2>
@@ -116,7 +116,32 @@ if(totalHours > 0){
 document.getElementById("jikyuu").innerHTML =
 jikyuu.toLocaleString();
 }
-  }
+function saveData(){
+
+  let hiduke =
+  document.getElementById("hiduke").value;
+
+  let uriage =
+  document.getElementById("uriage").value;
+
+  let kyuryo =
+  document.getElementById("kyuryo").innerText;
+
+  let history =
+  document.getElementById("history");
+
+  history.innerHTML =
+  "<p>" +
+  hiduke +
+  "　売上:" +
+  Number(uriage).toLocaleString() +
+  "円　給与:" +
+  kyuryo +
+  "円</p>"
+  + history.innerHTML;
+
+}
+}
 function saveData(){
 
 let date = document.getElementById("hiduke").value;
