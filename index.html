@@ -56,6 +56,7 @@ padding:15px;
 
 
 <h2>時給：<span id="jikyuu">0</span>円</h2>
+ <button onclick="clearHistory()">履歴削除</button>
   <h2>保存履歴</h2>
 
 <div id="history"></div>
@@ -117,7 +118,17 @@ document.getElementById("jikyuu").innerHTML =
 jikyuu.toLocaleString();
 }
 function saveData(){
+function clearHistory(){
 
+if(confirm("履歴を全て削除しますか？")){
+
+localStorage.clear();
+
+document.getElementById("history").innerHTML = "";
+
+}
+
+}
   let hiduke =
   document.getElementById("hiduke").value;
 
