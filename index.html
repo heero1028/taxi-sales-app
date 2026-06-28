@@ -1,13 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Taxi Sales App Ver1.2</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Taxi Sales App Ver1.3</title>
 
 <style>
+
 body{
-padding:20px;
+font-family:sans-serif;
 font-size:24px;
+padding:20px;
+background:#f5f5f5;
+}
+
+h1{
+text-align:center;
 }
 
 input{
@@ -21,15 +30,31 @@ box-sizing:border-box;
 button{
 width:100%;
 font-size:24px;
-padding:15px;
+padding:12px;
+margin-bottom:10px;
 }
+
+.result{
+background:white;
+padding:15px;
+margin-top:15px;
+border-radius:10px;
+}
+
+#history{
+background:white;
+padding:10px;
+margin-top:10px;
+border-radius:10px;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<h1>🚕 Taxi Sales App Ver1.2</h1>
+<h1>🚕 Taxi Sales App Ver1.3</h1>
 
 日付<br>
 <input id="hiduke" type="date">
@@ -40,29 +65,39 @@ padding:15px;
 入庫時間<br>
 <input id="nyuko" type="time">
 
-売上(税込)<br>
+売上（税込）<br>
 <input id="uriage" type="number">
 
-歩率(%)<br>
+歩率（%）<br>
 <input id="buritsu" type="number" value="60">
 
 <button onclick="calc()">計算</button>
+
 <button onclick="saveData()">日報保存</button>
+
+<button onclick="clearHistory()">履歴削除</button>
+
+<div class="result">
+
 <h2>税抜売上：<span id="zeinuki">0</span>円</h2>
 
 <h2>給与予測：<span id="kyuryo">0</span>円</h2>
 
-<h2>労働時間：<span id="roudou">0時間</span></h2>
-
+<h2>労働時間：<span id="roudou">0時間0分</span></h2>
 
 <h2>時給：<span id="jikyuu">0</span>円</h2>
- <button onclick="clearHistory()">履歴削除</button>
-  <h2>保存履歴</h2>
+
+</div>
+
+<h2>保存履歴</h2>
 
 <div id="history"></div>
+
 <script>
+
 function calc(){
-  let uriage =
+
+let uriage =
 Number(document.getElementById("uriage").value);
 
 let buritsu =
@@ -85,19 +120,22 @@ document.getElementById("syukko").value;
 
 let nyuko =
 document.getElementById("nyuko").value;
-  if(syukko && nyuko){
+
+if(syukko && nyuko){
 
 let start =
 new Date("2000-01-01 " + syukko);
 
 let end =
 new Date("2000-01-01 " + nyuko);
-if (end < start){
-  end.setDate(end.getDate() + 1);
+
+if(end < start){
+end.setDate(end.getDate()+1);
 }
 
 let diff =
-(end - start) / (1000 * 60);
+(end-start)/(1000*60);
+
 let h =
 Math.floor(diff/60);
 
@@ -105,61 +143,47 @@ let m =
 diff%60;
 
 document.getElementById("roudou").innerHTML =
-h + "時間" + m + "分";
-   let totalHours = diff / 60;
+h+"時間"+m+"分";
+
+let totalHours =
+diff/60;
 
 let jikyuu = 0;
 
-if(totalHours > 0){
-    jikyuu = Math.floor(kyuryo / totalHours);
+if(totalHours>0){
+
+jikyuu =
+Math.floor(kyuryo/totalHours);
+
 }
 
 document.getElementById("jikyuu").innerHTML =
 jikyuu.toLocaleString();
-}
-function saveData(){
-function clearHistory(){
-
-if(confirm("履歴を全て削除しますか？")){
-
-localStorage.clear();
-
-document.getElementById("history").innerHTML = "";
 
 }
 
 }
-  let hiduke =
-  document.getElementById("hiduke").value;
+ function saveData(){
 
-  let uriage =
-  document.getElementById("uriage").value;
+let date =
+document.getElementById("hiduke").value;
 
-  let kyuryo =
-  document.getElementById("kyuryo").innerText;
-
-  let history =
-  document.getElementById("history");
-
-  history.innerHTML =
-  "<p>" +
-  hiduke +
-  "　売上:" +
-  Number(uriage).toLocaleString() +
-  "円　給与:" +
-  kyuryo +
-  "円</p>"
-  + history.innerHTML;
-
+if(date==""){
+alert("日付を入力してください");
+return;
 }
-}
-function saveData(){
 
-let date = document.getElementById("hiduke").value;
-let uriage = document.getElementById("uriage").value;
-let kyuryo = document.getElementById("kyuryo").innerText;
-let roudou = document.getElementById("roudou").innerText;
-let jikyuu = document.getElementById("jikyuu").innerText;
+let uriage =
+Number(document.getElementById("uriage").value);
+
+let kyuryo =
+document.getElementById("kyuryo").innerText;
+
+let roudou =
+document.getElementById("roudou").innerText;
+
+let jikyuu =
+document.getElementById("jikyuu").innerText;
 
 let data =
 date +
@@ -173,121 +197,32 @@ localStorage.setItem(date,data);
 showHistory();
 
 }
-  function showHistory(){
-
-let text = "";
-
-for(let i=0;i<localStorage.length;i++){
-
-let key = localStorage.key(i);
-
-text += localStorage.getItem(key) + "<br><br>";
-
-}
-
-document.getElementById("history").innerHTML = text;
-
-}
-
-showHistory();
-</script>
-
-</body>
-</html
- let uriage = Number(document.getElementById(“uriage”).value);
-let buritsu = Number(document.getElementById(“buritsu”).value);
-
-let zeinuki = Math.round(uriage / 1.1 / 10) * 10;
-let kyuryo = Math.floor(zeinuki * buritsu / 100);
-
-document.getElementById(“zeinuki”).innerHTML =
-zeinuki.toLocaleString();
-
-document.getElementById(“kyuryo”).innerHTML =
-kyuryo.toLocaleString();
-
-let syukko = document.getElementById(“syukko”).value;
-let nyuko = document.getElementById(“nyuko”).value;
-
-if(syukko && nyuko){
-
-let start = new Date(“2000-01-01 “ + syukko);
-let end = new Date(“2000-01-01 “ + nyuko);
-
-if(end < start){
-end.setDate(end.getDate()+1);
-}
-
-let diff = (end-start)/(1000*60);
-
-let h = Math.floor(diff/60);
-let m = diff%60;
-
-document.getElementById(“roudou”).innerHTML =
-h + “時間” + m + “分”;
-
-let totalHours = diff/60;
-let jikyuu = 0;
-
-if(totalHours>0){
-jikyuu = Math.floor(kyuryo/totalHours);
-}
-
-document.getElementById(“jikyuu”).innerHTML =
-jikyuu.toLocaleString();
-
-}
-
-}
-
-function saveData(){
-
-let date = document.getElementById(“hiduke”).value;
-
-if(date==””){
-alert(“日付を入力してください”);
-return;
-}
-
-let data = {
-date: date,
-uriage: document.getElementById(“uriage”).value,
-kyuryo: document.getElementById(“kyuryo”).innerText,
-roudou: document.getElementById(“roudou”).innerText,
-jikyuu: document.getElementById(“jikyuu”).innerText
-};
-
-localStorage.setItem(date, JSON.stringify(data));
-
-showHistory();
-
-}
 
 function showHistory(){
 
-let text = “”;
+let text="";
 
-let keys = Object.keys(localStorage).sort().reverse();
+let keys =
+Object.keys(localStorage);
+
+keys.sort().reverse();
 
 for(let key of keys){
 
-let d = JSON.parse(localStorage.getItem(key));
-
-text += d.date +
-“　売上：” + Number(d.uriage).toLocaleString() + “円” +
-“　給与：” + d.kyuryo + “円” +
-“　労働：” + d.roudou +
-“　時給：” + d.jikyuu + “円”;
+text +=
+localStorage.getItem(key) +
+"<br><br>";
 
 }
 
-document.getElementById(“history”).innerHTML = text;
+document.getElementById("history").innerHTML =
+text;
 
 }
 
 function clearHistory(){
 
-if(confirm(“保存履歴をすべて削除しますか？”)){
+if(confirm("履歴を全て削除しますか？")){
 
 localStorage.clear();
 
@@ -300,6 +235,6 @@ showHistory();
 showHistory();
 
 </script>
+
 </body>
 </html>
-  
