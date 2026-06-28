@@ -194,4 +194,112 @@ showHistory();
 
 </body>
 </html
+ let uriage = Number(document.getElementById(“uriage”).value);
+let buritsu = Number(document.getElementById(“buritsu”).value);
+
+let zeinuki = Math.round(uriage / 1.1 / 10) * 10;
+let kyuryo = Math.floor(zeinuki * buritsu / 100);
+
+document.getElementById(“zeinuki”).innerHTML =
+zeinuki.toLocaleString();
+
+document.getElementById(“kyuryo”).innerHTML =
+kyuryo.toLocaleString();
+
+let syukko = document.getElementById(“syukko”).value;
+let nyuko = document.getElementById(“nyuko”).value;
+
+if(syukko && nyuko){
+
+let start = new Date(“2000-01-01 “ + syukko);
+let end = new Date(“2000-01-01 “ + nyuko);
+
+if(end < start){
+end.setDate(end.getDate()+1);
+}
+
+let diff = (end-start)/(1000*60);
+
+let h = Math.floor(diff/60);
+let m = diff%60;
+
+document.getElementById(“roudou”).innerHTML =
+h + “時間” + m + “分”;
+
+let totalHours = diff/60;
+let jikyuu = 0;
+
+if(totalHours>0){
+jikyuu = Math.floor(kyuryo/totalHours);
+}
+
+document.getElementById(“jikyuu”).innerHTML =
+jikyuu.toLocaleString();
+
+}
+
+}
+
+function saveData(){
+
+let date = document.getElementById(“hiduke”).value;
+
+if(date==””){
+alert(“日付を入力してください”);
+return;
+}
+
+let data = {
+date: date,
+uriage: document.getElementById(“uriage”).value,
+kyuryo: document.getElementById(“kyuryo”).innerText,
+roudou: document.getElementById(“roudou”).innerText,
+jikyuu: document.getElementById(“jikyuu”).innerText
+};
+
+localStorage.setItem(date, JSON.stringify(data));
+
+showHistory();
+
+}
+
+function showHistory(){
+
+let text = “”;
+
+let keys = Object.keys(localStorage).sort().reverse();
+
+for(let key of keys){
+
+let d = JSON.parse(localStorage.getItem(key));
+
+text += d.date +
+“　売上：” + Number(d.uriage).toLocaleString() + “円” +
+“　給与：” + d.kyuryo + “円” +
+“　労働：” + d.roudou +
+“　時給：” + d.jikyuu + “円”;
+
+}
+
+document.getElementById(“history”).innerHTML = text;
+
+}
+
+function clearHistory(){
+
+if(confirm(“保存履歴をすべて削除しますか？”)){
+
+localStorage.clear();
+
+showHistory();
+
+}
+
+}
+
+showHistory();
+
+</script>
+</body>
+</html>
   
